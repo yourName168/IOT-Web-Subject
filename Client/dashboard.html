@@ -17,7 +17,8 @@
     </header>
     <main>
         <section id="system-overview">
-            <h3>Thông Tin Thời Gian Thực</h3>
+            <h3>Thông Tin Thời Gian Thực <span style="font-weight: 500;">(Dữ liệu được cập nhật 30'/lần)</span></h3>
+            <button id="refresh-button">Làm mới</button>
             <table>
                 <thead>
                     <tr>
@@ -102,16 +103,28 @@
                 <input type="number" id="water-amount" placeholder="Nhập lượng nước">
                 <br>
                 <div class="row">
-                        <label for="time-set">Chọn giờ:</label>
-                        <input type="time" id="time-set">
-                        <label for="date-set">Chọn ngày:</label>
+                        <div class="w-100">
+                            <label for="time-set">Chọn giờ:</label>
+                            <input type="time" id="time-set">
+                        </div>
+                        <div class="w-100">
+                            <label for="date-set">Chọn ngày:</label>
                         <input type="date" id="date-set">
-                        <label for="repeat-set">Lặp lại:</label>
+                        </div>
+                        <div class="w-100">
+                            <label for="repeat-set">Lặp lại:</label>
                         <select id="repeat-set">
                             <option value="Không">Không</option>
                             <option value="Hằng ngày">Hằng ngày</option>
                             <option value="Hằng tuần">Hằng tuần</option>
                         </select>
+                        </div>
+                        <div class="w-100">
+                            
+                        </div>
+                        
+                        
+                        
                         <button onclick="setAutoPump()">Lưu</button>
                 </div>
                 

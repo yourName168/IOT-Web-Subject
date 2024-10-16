@@ -1,3 +1,4 @@
+
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -26,19 +27,19 @@ form {
     padding: 20px;
     border-radius: 8px; /* Bo tròn góc cho form */
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Hiệu ứng bóng cho form */
-    max-width: 300px;
-    width: 40%;
+    max-width: 350px;
+    width: 90%;
     margin: auto;
 }
 
 input[type="text"],
 input[type="password"] {
-    width: 93%; /* Chiều rộng 100% cho ô nhập liệu */
     padding: 10px;
     margin: 10px 0; /* Khoảng cách giữa các ô nhập */
     border: 1px solid #ccc; /* Đường viền nhẹ cho ô nhập liệu */
     border-radius: 5px; /* Bo tròn góc ô nhập liệu */
     font-size: 16px; /* Kích thước chữ */
+    width: 100%;
 }
 
 button {
@@ -67,11 +68,13 @@ p {
     text-align: center; /* Căn giữa đoạn văn */
 }
 
-.title {
+.title, a {
     text-align: center;
     color: #45a049;
 }
-
+a:hover {
+    color: #4CAF50;;
+}
 /* outline input  */
 input:focus {
     border: 1px solid #72b875;

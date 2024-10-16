@@ -87,3 +87,33 @@ input[type="number"] {
 canvas {
     width: 75% !important;
 }
+
+lable {
+    margin-right: 5px;
+}
+/* outline input  */
+input:focus {
+    border: 1px solid #72b875;
+    outline: none; /* Bỏ viền mặc định của trình duyệt */
+}
+
+.w-100 {
+    display: inline;
+}
+
+@media screen and (max-width: 576px) {
+    .w-100 {
+        display: block;
+        margin-bottom: 10px;
+        /* width: 100%; */
+    }
+    body, button {
+        font-size: 12px;
+    }
+    canvas {
+        width: 100% !important;
+    }
+    button {
+        padding: 7px 10px;
+    }
+}

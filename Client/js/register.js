@@ -8,7 +8,7 @@ document.getElementById('register-form').addEventListener('submit', function(eve
     // Kiểm tra định dạng email
     const emailPattern = /^[a-zA-Z0-9._%+-]+@gmail\.com$/; // Chỉ cho phép email có đuôi @gmail.com
     if (!emailPattern.test(email)) {
-        registerError.innerText = "Email phải có định dạng @gmail.com!";
+        registerError.innerText = "Email phải có định dạng @gmail.com";
         return;
     }
 
