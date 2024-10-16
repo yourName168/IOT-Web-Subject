@@ -1,0 +1,91 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    height: 100vh; /* Chiều cao đầy đủ của màn hình */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Căn giữa theo chiều dọc */
+    align-items: center; /* Căn giữa theo chiều ngang */
+    background-color: #e0f7fa; /* Màu nền nhẹ nhàng, tươi mát */
+    color: #333; /* Màu chữ tối để dễ đọc */
+}
+
+.button-container {
+    display: flex;
+    flex-direction: column; /* Đặt các nút theo cột */
+    gap: 20px; /* Khoảng cách giữa các nút */
+}
+
+.action-button {
+    padding: 15px 30px;
+    font-size: 18px; /* Kích thước chữ cho nút */
+    background-color: #4CAF50; /* Màu xanh lá cây cho nút */
+    color: white; /* Chữ màu trắng trên nút */
+    border: none;
+    border-radius: 5px; /* Bo tròn góc nút */
+    cursor: pointer; /* Hiệu ứng con trỏ khi di chuột qua nút */
+    transition: background-color 0.3s; /* Hiệu ứng chuyển màu */
+}
+
+.action-button:hover {
+    background-color: #45a049; /* Màu sắc khi di chuột qua nút */
+}
+
+header {
+    background-color: #4CAF50; /* Màu xanh lá cây cho header */
+    color: white;
+    padding: 15px;
+    text-align: center;
+}
+
+h2, h3 {
+    color: #4CAF50; /* Màu xanh lá cây cho tiêu đề */
+}
+
+h2.login,
+h2.register {
+    color: white;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px; /* Khoảng cách phía trên bảng */
+}
+
+table, th, td {
+    border: 1px solid #4CAF50; /* Màu xanh lá cây cho đường viền bảng */
+}
+
+th, td {
+    padding: 10px;
+    text-align: center;
+}
+
+button {
+    background-color: #4CAF50; /* Màu xanh lá cây cho nút */
+    color: white; /* Chữ màu trắng trên nút */
+    border: none;
+    border-radius: 5px; /* Bo tròn góc nút */
+    padding: 10px 15px;
+    cursor: pointer; /* Hiệu ứng con trỏ khi di chuột qua nút */
+    margin: 5px; /* Khoảng cách giữa các nút */
+}
+
+button:hover {
+    background-color: #45a049; /* Màu sắc khi di chuột qua nút */
+}
+
+input[type="text"],
+input[type="password"],
+input[type="number"] {
+    width: 100%; /* Chiều rộng 100% cho ô nhập liệu */
+    padding: 10px;
+    margin: 10px 0; /* Khoảng cách trên và dưới */
+    border: 1px solid #ccc; /* Đường viền nhẹ cho ô nhập liệu */
+    border-radius: 5px; /* Bo tròn góc ô nhập liệu */
+}
+
+.error-message {
+    color: red; /* Màu đỏ cho thông báo lỗi */
+    margin-top: 10px;
+}

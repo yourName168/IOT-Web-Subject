@@ -1,0 +1,28 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    height: 100vh; /* Chiều cao đầy đủ của màn hình */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Căn giữa theo chiều dọc */
+    align-items: center; /* Căn giữa theo chiều ngang */
+    background-color: #e0f7fa; /* Màu nền nhẹ nhàng, tươi mát */
+    color: #333; /* Màu chữ tối để dễ đọc */
+}
+
+.button-container {
+    display: flex;
+    flex-direction: column; /* Đặt các nút theo cột */
+    gap: 20px; /* Khoảng cách giữa các nút */
+}
+
+.action-button {
+    padding: 15px 30px;
+    font-size: 18px; /* Kích thước chữ cho nút */
+    background-color: #4CAF50; /* Màu xanh lá cây cho nút */
+    color: white; /*
+ border: none; border-radius: 5px; / Bo tròn góc nút / cursor: pointer; / Hiệu ứng con trỏ khi di chuột qua nút / transition: background-color 0.3s; / Hiệu ứng chuyển màu */ }
+
+ .action-button { 
+    background-color: #45a049; /* Màu sắc khi di chuột qua nút */ 
+}

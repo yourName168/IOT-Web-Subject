@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng Nhập</title>
+    <link rel="icon" href="./logo.png" type="image/png">
+    <link rel="stylesheet" href="css/login.css"> <!-- Sử dụng tệp CSS cho login -->
+</head>
+<body>
+    <main>
+        <form id="login-form">
+            <h2 class="title">Đăng nhập</h2>
+            <input type="text" id="email" placeholder="Email" required>
+            <input type="password" id="password" placeholder="Mật khẩu" required>
+            <button type="submit">Đăng Nhập</button>
+            <p id="login-error" class="error-message"></p>
+            <a href="#" id="forgot-password">Quên mật khẩu?</a> <!-- Thêm liên kết này -->
+            <p>Bạn chưa có tài khoản? <a href="register.html">Đăng Ký</a></p>
+        </form>
+        
+    </main>
+    <script src="js/login.js"></script>
+</body>
+</html>
