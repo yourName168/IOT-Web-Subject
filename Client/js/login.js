@@ -43,26 +43,6 @@ document.getElementById('forgot-password').addEventListener('click', function(ev
 
     if (userEmail) {
         // Giả lập việc gửi email khôi phục mật khẩu
-        console.log(`Đã gửi yêu cầu khôi phục mật khẩu tới email: ${userEmail}`);
         alert("Nếu địa chỉ email tồn tại, bạn sẽ nhận được hướng dẫn khôi phục mật khẩu.");
-        
-        // Thực tế: Gửi yêu cầu tới máy chủ để xử lý khôi phục mật khẩu
-        // Ví dụ:
-        // fetch('/reset-password', {
-        //     method: 'POST',
-        //     headers: {
-        //         'Content-Type': 'application/json'
-        //     },
-        //     body: JSON.stringify({ email: userEmail })
-        // })
-        // .then(response => response.json())
-        // .then(data => {
-        //     if (data.success) {
-        //         alert("Vui lòng kiểm tra email của bạn để khôi phục mật khẩu.");
-        //     } else {
-        //         alert("Không tìm thấy địa chỉ email. Vui lòng thử lại.");
-        //     }
-        // })
-        // .catch(error => console.error('Lỗi:', error));
     }
 });
