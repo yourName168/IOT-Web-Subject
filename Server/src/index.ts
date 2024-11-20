@@ -3,6 +3,8 @@ import dotenv from 'dotenv'
 import express, { Express } from 'express'
 import userRoute from './routes/User.Routes'
 import { databaseService } from './services/database.services'
+import { getPlantRequirements } from './utils/openAI'
+import climateRoutes from './routes/Climate.Routes'
 dotenv.config()
 
 const app: Express = express()
@@ -15,3 +17,4 @@ databaseService.run()
 app.use(express.json())
 app.use(cors())
 app.use('/users', userRoute)
+app.use('/climate', climateRoutes)

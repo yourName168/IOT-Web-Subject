@@ -5,22 +5,26 @@ dotenv.config()
 const databaseUserName = process.env.USERS_DATABASE_USER
 const databasePassword = process.env.USERS_DATABASE_PASSWORD
 
-const uri = `mongodb+srv://${databaseUserName}:${databasePassword}@useraccount.p0jlcj2.mongodb.net/?retryWrites=true&w=majority`
+console.log(databaseUserName)
 
-// Create a MongoClient with a MongoClientOptions object to set the Stable API version
+const uri = `mongodb+srv://${databaseUserName}:${databasePassword}@cluster0.gius7.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`
 class DatabaseService {
   private client: MongoClient
+  private db: Db
   constructor() {
     this.client = new MongoClient(uri)
+    this.db = this.client.db('main_DB')
   }
   run = async () => {
     try {
-      // Connect the client to the server	(optional starting in v4.7)
       await this.client.connect()
       console.log('Pinged your deployment. You successfully connected to MongoDB!')
     } catch {
       console.log('Cannot connect to database')
     }
+  }
+  getCollection = (collectionName: string): Collection => {
+    return this.db.collection(collectionName)
   }
 }
 export const databaseService = new DatabaseService()
