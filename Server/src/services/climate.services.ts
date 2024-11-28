@@ -28,8 +28,22 @@ class ClimateServices {
     const result = await databaseService.getCollection('pump-status').findOne()
     return result
   }
-  async updatePumpStatus({ status, isManualPump }: { status: string; isManualPump: boolean }) {
-    const result = await databaseService.getCollection('pump-status').updateOne({}, { $set: { status, isManualPump } })
+  async updatePumpStatus({
+    status,
+    isManualPump,
+    temperature,
+    soilMoisture,
+    airHumidity
+  }: {
+    status: string
+    isManualPump: boolean
+    temperature?: string
+    soilMoisture?: string
+    airHumidity?: string
+  }) {
+    const result = await databaseService
+      .getCollection('pump-status')
+      .updateOne({}, { $set: { status, isManualPump, temperature, soilMoisture, airHumidity } })
     return result
   }
 }

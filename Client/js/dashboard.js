@@ -540,21 +540,8 @@ setInterval(() => {
   togglePump(status === "Bật");
 }, 1800000); // 30 phút
 
-// Biểu đồ theo dõi
-const temperatureData = [
-  { time: "2024-10-12 08:00", temperature: 22 },
-  { time: "2024-10-12 14:00", temperature: 24 },
-  { time: "2024-10-12 20:00", temperature: 21 },
-  { time: "2024-10-13 08:00", temperature: 23 },
-  { time: "2024-10-13 14:00", temperature: 25 },
-  { time: "2024-10-13 20:00", temperature: 22 },
-  { time: "2024-10-14 08:00", temperature: 24 },
-  { time: "2024-10-14 14:00", temperature: 26 },
-  { time: "2024-10-14 20:00", temperature: 23 },
-];
-
 // Hàm để vẽ biểu đồ
-function drawTemperatureChart() {
+function drawTemperatureChart(temperatureData) {
   const ctx = document.getElementById("tracking-chart").getContext("2d");
 
   const labels = temperatureData.map((data) => data.time); // Trục X
@@ -601,25 +588,7 @@ function drawTemperatureChart() {
     },
   });
 }
-
-// Gọi hàm vẽ biểu đồ khi trang tải
-document.addEventListener("DOMContentLoaded", drawTemperatureChart);
-
-// bieu đồ độ ẩm không khí
-const humidityAirData = [
-  { time: "2024-10-12 08:00", humidity: 60 },
-  { time: "2024-10-12 14:00", humidity: 23 },
-  { time: "2024-10-12 20:00", humidity: 58 },
-  { time: "2024-10-13 08:00", humidity: 92 },
-  { time: "2024-10-13 14:00", humidity: 90 },
-  { time: "2024-10-13 20:00", humidity: 60 },
-  { time: "2024-10-14 08:00", humidity: 65 },
-  { time: "2024-10-14 14:00", humidity: 10 },
-  { time: "2024-10-14 20:00", humidity: 64 },
-];
-
-// Hàm để vẽ biểu đồ độ ẩm không khí
-function drawHumidityAirChart() {
+function drawHumidityAirChart(humidityAirData) {
   const ctx = document.getElementById("humidity-air-chart").getContext("2d");
 
   const labels = humidityAirData.map((data) => data.time); // Trục X
@@ -666,25 +635,7 @@ function drawHumidityAirChart() {
     },
   });
 }
-
-// Gọi hàm vẽ biểu đồ khi trang tải
-document.addEventListener("DOMContentLoaded", drawHumidityAirChart);
-
-// biểu đồ độ ẩm đất
-const soilMoistureData = [
-  { time: "2024-10-12 08:00", moisture: 1 },
-  { time: "2024-10-12 14:00", moisture: 35 },
-  { time: "2024-10-12 20:00", moisture: 28 },
-  { time: "2024-10-13 08:00", moisture: 78 },
-  { time: "2024-10-13 14:00", moisture: 34 },
-  { time: "2024-10-13 20:00", moisture: 31 },
-  { time: "2024-10-14 08:00", moisture: 99 },
-  { time: "2024-10-14 14:00", moisture: 56 },
-  { time: "2024-10-14 20:00", moisture: 34 },
-];
-
-// Hàm để vẽ biểu đồ độ ẩm đất
-function drawSoilMoistureChart() {
+function drawSoilMoistureChart(soilMoistureData) {
   const ctx = document.getElementById("soil-moisture-chart").getContext("2d");
 
   const labels = soilMoistureData.map((data) => data.time); // Trục X
@@ -731,6 +682,20 @@ function drawSoilMoistureChart() {
     },
   });
 }
+// Gọi hàm vẽ biểu đồ khi trang tải
+
+document.addEventListener("DOMContentLoaded", drawTemperatureChart);
+document.addEventListener("DOMContentLoaded", drawHumidityAirChart);
+document.addEventListener("DOMContentLoaded", drawSoilMoistureChart);
+// Hàm để vẽ biểu đồ độ ẩm không khí
+
+
+// Gọi hàm vẽ biểu đồ khi trang tải
+
+
+
+// Hàm để vẽ biểu đồ độ ẩm đất
+
 
 document
   .getElementById("refresh-button")
@@ -739,7 +704,6 @@ document
   });
 
 // Gọi hàm vẽ biểu đồ khi trang tải
-document.addEventListener("DOMContentLoaded", drawSoilMoistureChart);
 
 function fetchClimateData() {
   fetch("http://localhost:4000/climate/get-climate?dataNumber=1")
@@ -764,4 +728,4 @@ function fetchClimateData() {
 fetchClimateData();
 
 // Sau đó thiết lập setInterval để gọi lại fetch sau mỗi 10,000,000ms
-setInterval(fetchClimateData, 30 * 60 * 1000); // 30 phút
+setInterval(fetchClimateData, 50 * 60 * 1000); // 30 phút

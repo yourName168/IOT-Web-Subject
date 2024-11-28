@@ -1,10 +1,41 @@
 import { Request, Response } from 'express'
 import { Climate } from '~/models/schema/Climate.Schema'
 import { climateServices } from '~/services/climate.services'
+import { mqttService } from '~/services/MQTT.services'
+
+const checkCondition = (value: number, min: number, max: number) => {
+  return value >= min && value <= max
+}
 
 export const addDataController = async (req: Request, res: Response) => {
   const { temperature, soilMoisture, airHumidity } = req.body as unknown as Climate
   const result = await climateServices.addClimateData(temperature, soilMoisture, airHumidity)
+  const pumpData = (await climateServices.getPumpStatus()) as any
+  const [minTemPerature, maxTemperature] = pumpData.temperature.split('-')
+  const [minSoilMoisture, maxSoilMoisture] = pumpData.soilMoisture.split('-')
+  const [minAirHumidity, maxAirHumidity] = pumpData.airHumidity.split('-')
+  console.log(minAirHumidity, maxAirHumidity)
+  console.log(minSoilMoisture, maxSoilMoisture)
+  console.log(minTemPerature, maxTemperature)
+
+  let newPumpStatus = 'off'
+
+  if (
+    checkCondition(temperature, Number(minTemPerature), Number(maxTemperature)) &&
+    checkCondition(soilMoisture, Number(minSoilMoisture), Number(maxSoilMoisture)) &&
+    checkCondition(airHumidity, Number(minAirHumidity), Number(maxAirHumidity))
+  ) {
+    newPumpStatus = 'on'
+  }
+
+  if (newPumpStatus !== pumpData.status && pumpData.isManualPump) {
+    await mqttService.publish('esp8266/pumpStatus', newPumpStatus)
+    await climateServices.updatePumpStatus({
+      ...pumpData,
+      status: newPumpStatus
+    })
+  }
+
   if (result) {
     return res.status(200).json({ message: 'update Climate successfully' })
   } else {

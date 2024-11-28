@@ -1,5 +1,10 @@
 import { Router } from 'express'
-import { getClimateController, addDataController, updatePumpStatusController, getPumpStatusController } from '~/controllers/Climate.Controller'
+import {
+  getClimateController,
+  addDataController,
+  updatePumpStatusController,
+  getPumpStatusController
+} from '~/controllers/Climate.Controller'
 const climateRoutes = Router()
 
 climateRoutes.post('/update-climate', addDataController)
