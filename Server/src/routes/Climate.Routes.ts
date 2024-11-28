@@ -3,7 +3,8 @@ import {
   getClimateController,
   addDataController,
   updatePumpStatusController,
-  getPumpStatusController
+  getPumpStatusController,
+  getPlantEnvironmentController
 } from '~/controllers/Climate.Controller'
 const climateRoutes = Router()
 
@@ -32,6 +33,12 @@ climateRoutes.get('/get-pump-status', getPumpStatusController)
   method: GET
   body: {}
   description: get the pump status
+*/
+climateRoutes.post('/get-plant-environment', getPlantEnvironmentController)
+/*
+  method: GET
+  body: {plantName: string}
+  description: get the plant environment
 */
 
 export default climateRoutes

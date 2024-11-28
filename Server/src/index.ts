@@ -1,12 +1,17 @@
 import cors from 'cors'
+import { Server as SocketServer } from 'socket.io'
 import dotenv from 'dotenv'
 import express, { Express } from 'express'
+import http from 'http' // Import http to use with Express
+
 import userRoute from './routes/User.Routes'
 import { databaseService } from './services/database.services'
-import { getPlantRequirements } from './utils/openAI'
 import climateRoutes from './routes/Climate.Routes'
 import { mqttService } from './services/MQTT.services'
 import { Climate } from './models/schema/Climate.Schema'
+import SocketService from './services/socket.services'
+
+dotenv.config()
 
 const generateClimateData = (): Climate[] => {
   const climateDataList: Climate[] = []
@@ -33,25 +38,30 @@ const count = 0
 //   await mqttService.publish('esp8266/sendData', data)
 // }, 10000)
 
-dotenv.config()
-
 const app: Express = express()
-const port = process.env.PORT
-
-app.listen(port, () => {
-  console.log(`[server]: Server is running at http://localhost:${port}`)
+const server = http.createServer(app) // Create HTTP server using Express
+const io = new SocketServer(server, {
+  cors: {
+    origin: '*', // Allow all origins (can be restricted for production)
+    methods: ['GET', 'POST']
+  }
 })
 
-databaseService.run()
-mqttService.connect()
-// .then(async () => {
-//   await mqttService.subscribe('esp8266/sendData')
-//   await mqttService.onMessage((topic, message) => {
-//     const environmentData = JSON.parse(message)
-//     receiveEnvironmentDataController(environmentData)
-//   })
-// })
+// Instantiate the SocketService to handle socket events
+new SocketService(io)
+
+// Configure your routes
 app.use(express.json())
 app.use(cors())
 app.use('/users', userRoute)
 app.use('/climate', climateRoutes)
+
+// Connect to the database and MQTT service
+databaseService.run()
+mqttService.connect()
+
+// Start the server with Socket.IO and Express
+const port = process.env.PORT || 3000
+server.listen(port, () => {
+  console.log(`[server]: Server is running at http://localhost:${port}`)
+})

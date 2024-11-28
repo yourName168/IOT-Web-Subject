@@ -14,9 +14,6 @@ export const addDataController = async (req: Request, res: Response) => {
   const [minTemPerature, maxTemperature] = pumpData.temperature.split('-')
   const [minSoilMoisture, maxSoilMoisture] = pumpData.soilMoisture.split('-')
   const [minAirHumidity, maxAirHumidity] = pumpData.airHumidity.split('-')
-  console.log(minAirHumidity, maxAirHumidity)
-  console.log(minSoilMoisture, maxSoilMoisture)
-  console.log(minTemPerature, maxTemperature)
 
   let newPumpStatus = 'off'
 
@@ -64,9 +61,20 @@ export const getPumpStatusController = async (req: Request, res: Response) => {
 
 export const updatePumpStatusController = async (req: Request, res: Response) => {
   const result = await climateServices.updatePumpStatus(req.body)
+  await climateServices.addPumpHistory(req.body)
   if (result) {
     return res.status(200).json({ message: 'update Pump Status successfully' })
   } else {
     return res.status(500).json({ message: 'Failed to update pump status' })
+  }
+}
+
+export const getPlantEnvironmentController = async (req: Request, res: Response) => {
+  const { plantName } = req.body
+  const result = await climateServices.getPlantEnvironment(plantName as string)
+  if (result) {
+    return res.status(200).json({ message: 'get Plant Environment successfully', data: result })
+  } else {
+    return res.status(500).json({ message: 'Failed to get plant environment' })
   }
 }
