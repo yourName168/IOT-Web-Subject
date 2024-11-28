@@ -1,3 +1,4 @@
+// Hàm chuyển đổi giữa chế độ thủ công và tự động
 function toggleMode(mode) {
   const manualControls = document.getElementById("manual-controls");
   const automaticControls = document.getElementById("automatic-controls");
@@ -11,6 +12,7 @@ function toggleMode(mode) {
   }
 }
 
+// Cập nhật trạng thái máy bơm
 async function togglePump(isOn) {
   const pumpStatus = document.getElementById("pump-status");
   pumpStatus.innerText = isOn ? "Đang bật" : "Đang tắt";
@@ -29,6 +31,7 @@ async function togglePump(isOn) {
   });
 }
 
+// Thiết lập bơm tự động
 function setAutoPump() {
   const waterAmount = document.getElementById("water-amount").value;
   const dateSet = document.getElementById("date-set").value;
@@ -45,389 +48,13 @@ function setAutoPump() {
            Ngày: ${dateSet}
            Giờ: ${timeSet}
            Lặp lại: ${repeatSet === "no" ? "Không" : repeatSet}`);
-  // Thực hiện các hành động cần thiết để cài đặt bơm tự động (lưu trữ dữ liệu hoặc kết nối với server)
 }
 
+// Đăng xuất
 function logout() {
   alert("Đăng xuất thành công!");
   window.location.href = "index.html"; // Quay về trang chính
 }
-
-document.addEventListener("DOMContentLoaded", function () {
-  console.log("Tệp JavaScript đã được nạp thành công.");
-
-  // Sử dụng sự kiện click trực tiếp vào nút "Tìm Kiếm"
-  document
-    .querySelector('#plant-form button[type="submit"]')
-    .addEventListener("click", function (event) {
-      event.preventDefault(); // Ngăn form gửi đi
-      const plantType = document
-        .getElementById("plant-type")
-        .value.toLowerCase()
-        .trim();
-
-      console.log("Nút 'Tìm Kiếm' đã được nhấn. Loại thực vật:", plantType);
-
-      // Tập hợp các điều kiện lý tưởng cho từng loại thực vật
-      const idealConditions = {
-        "cà chua": {
-          temperature: "20-25°C",
-          soilMoisture: "40-60%",
-          humidity: "60-70%",
-        },
-        "rau cải": {
-          temperature: "15-20°C",
-          soilMoisture: "30-50%",
-          humidity: "70-80%",
-        },
-        "cà rốt": {
-          temperature: "16-21°C",
-          soilMoisture: "40-50%",
-          humidity: "65-75%",
-        },
-        "bắp cải": {
-          temperature: "15-18°C",
-          soilMoisture: "30-45%",
-          humidity: "70-80%",
-        },
-        "dưa chuột": {
-          temperature: "22-28°C",
-          soilMoisture: "50-60%",
-          humidity: "70-80%",
-        },
-        "xà lách": {
-          temperature: "15-20°C",
-          soilMoisture: "35-55%",
-          humidity: "70-80%",
-        },
-        "cải bó xôi": {
-          temperature: "15-20°C",
-          soilMoisture: "30-50%",
-          humidity: "65-75%",
-        },
-        "bí đỏ": {
-          temperature: "18-25°C",
-          soilMoisture: "40-60%",
-          humidity: "60-70%",
-        },
-        "cà tím": {
-          temperature: "22-28°C",
-          soilMoisture: "40-55%",
-          humidity: "65-75%",
-        },
-        "khoai lang": {
-          temperature: "20-30°C",
-          soilMoisture: "40-60%",
-          humidity: "60-70%",
-        },
-        "củ cải đỏ": {
-          temperature: "16-20°C",
-          soilMoisture: "35-50%",
-          humidity: "70-80%",
-        },
-        "hành lá": {
-          temperature: "12-20°C",
-          soilMoisture: "30-45%",
-          humidity: "70-80%",
-        },
-        ớt: {
-          temperature: "22-30°C",
-          soilMoisture: "40-60%",
-          humidity: "60-70%",
-        },
-        "rau dền": {
-          temperature: "18-30°C",
-          soilMoisture: "30-50%",
-          humidity: "60-70%",
-        },
-        "rau muống": {
-          temperature: "25-30°C",
-          soilMoisture: "40-60%",
-          humidity: "75-85%",
-        },
-        "cải thảo": {
-          temperature: "15-20°C",
-          soilMoisture: "35-50%",
-          humidity: "70-80%",
-        },
-        "dưa lê": {
-          temperature: "22-28°C",
-          soilMoisture: "40-60%",
-          humidity: "65-75%",
-        },
-        "cải thìa": {
-          temperature: "15-22°C",
-          soilMoisture: "35-50%",
-          humidity: "70-80%",
-        },
-        "húng quế": {
-          temperature: "20-25°C",
-          soilMoisture: "40-60%",
-          humidity: "65-75%",
-        },
-        "rau mùi": {
-          temperature: "15-20°C",
-          soilMoisture: "30-50%",
-          humidity: "65-75%",
-        },
-        "hoa cúc": {
-          temperature: "18-24°C",
-          soilMoisture: "40-50%",
-          humidity: "60-70%",
-        },
-        "cỏ mực": {
-          temperature: "18-30°C",
-          soilMoisture: "35-55%",
-          humidity: "65-75%",
-        },
-        "cúc tần": {
-          temperature: "18-30°C",
-          soilMoisture: "30-50%",
-          humidity: "60-70%",
-        },
-        "dâu tây": {
-          temperature: "15-25°C",
-          soilMoisture: "40-50%",
-          humidity: "65-75%",
-        },
-        mía: {
-          temperature: "25-30°C",
-          soilMoisture: "40-60%",
-          humidity: "70-80%",
-        },
-        "cà phê": {
-          temperature: "18-25°C",
-          soilMoisture: "40-55%",
-          humidity: "60-70%",
-        },
-        "lúa mì": {
-          temperature: "15-25°C",
-          soilMoisture: "30-50%",
-          humidity: "50-60%",
-        },
-        lúa: {
-          temperature: "20-30°C",
-          soilMoisture: "40-60%",
-          humidity: "70-80%",
-        },
-        ngô: {
-          temperature: "22-30°C",
-          soilMoisture: "40-60%",
-          humidity: "65-75%",
-        },
-        "đậu tương": {
-          temperature: "18-28°C",
-          soilMoisture: "35-50%",
-          humidity: "60-70%",
-        },
-        vừng: {
-          temperature: "20-30°C",
-          soilMoisture: "30-45%",
-          humidity: "50-60%",
-        },
-        lạc: {
-          temperature: "22-30°C",
-          soilMoisture: "35-50%",
-          humidity: "60-70%",
-        },
-        "bạc hà": {
-          temperature: "15-20°C",
-          soilMoisture: "35-55%",
-          humidity: "70-80%",
-        },
-        tỏi: {
-          temperature: "12-20°C",
-          soilMoisture: "30-45%",
-          humidity: "60-70%",
-        },
-        "hành tây": {
-          temperature: "15-25°C",
-          soilMoisture: "30-50%",
-          humidity: "60-70%",
-        },
-        "hành tím": {
-          temperature: "16-24°C",
-          soilMoisture: "30-50%",
-          humidity: "60-70%",
-        },
-        "mướp đắng": {
-          temperature: "22-28°C",
-          soilMoisture: "40-60%",
-          humidity: "70-80%",
-        },
-        "khoai tây": {
-          temperature: "15-20°C",
-          soilMoisture: "40-60%",
-          humidity: "60-70%",
-        },
-        gừng: {
-          temperature: "20-30°C",
-          soilMoisture: "40-60%",
-          humidity: "70-80%",
-        },
-        nghệ: {
-          temperature: "20-30°C",
-          soilMoisture: "40-60%",
-          humidity: "70-80%",
-        },
-        mít: {
-          temperature: "22-30°C",
-          soilMoisture: "40-60%",
-          humidity: "60-70%",
-        },
-        bưởi: {
-          temperature: "22-30°C",
-          soilMoisture: "40-60%",
-          humidity: "60-70%",
-        },
-        "chanh leo": {
-          temperature: "20-28°C",
-          soilMoisture: "40-55%",
-          humidity: "60-70%",
-        },
-        nhãn: {
-          temperature: "22-30°C",
-          soilMoisture: "40-60%",
-          humidity: "60-70%",
-        },
-        vải: {
-          temperature: "22-30°C",
-          soilMoisture: "40-60%",
-          humidity: "60-70%",
-        },
-        mận: {
-          temperature: "15-25°C",
-          soilMoisture: "35-50%",
-          humidity: "60-70%",
-        },
-        "măng cụt": {
-          temperature: "20-30°C",
-          soilMoisture: "40-60%",
-          humidity: "65-75%",
-        },
-        "sầu riêng": {
-          temperature: "22-30°C",
-          soilMoisture: "40-60%",
-          humidity: "65-75%",
-        },
-        táo: {
-          temperature: "15-25°C",
-          soilMoisture: "35-50%",
-          humidity: "65-75%",
-        },
-        lê: {
-          temperature: "12-22°C",
-          soilMoisture: "30-50%",
-          humidity: "60-70%",
-        },
-      };
-
-      // Kiểm tra nếu có điều kiện lý tưởng cho loại thực vật đã nhập
-      if (idealConditions.hasOwnProperty(plantType)) {
-        console.log("Tìm thấy điều kiện lý tưởng cho:", plantType);
-
-        // Cập nhật thông tin điều kiện lý tưởng
-        document.getElementById("ideal-temperature").innerText =
-          idealConditions[plantType].temperature;
-        document.getElementById("ideal-soil-moisture").innerText =
-          idealConditions[plantType].soilMoisture;
-        document.getElementById("ideal-humidity").innerText =
-          idealConditions[plantType].humidity;
-
-        // Hiển thị phần "Điều Kiện Lý Tưởng"
-        document.getElementById("ideal-conditions").style.display = "block";
-      } else {
-        document.getElementById("ideal-conditions").style.display = "none";
-        console.log("Không tìm thấy điều kiện cho loại thực vật này");
-        alert("Không tìm thấy điều kiện cho loại thực vật này!");
-      }
-    });
-});
-var ok = 1;
-document.getElementById("apply-button").addEventListener("click", function () {
-  const temperature = document
-    .getElementById("custom-temperature")
-    .value.trim();
-  const soilMoisture = document
-    .getElementById("custom-soil-moisture")
-    .value.trim();
-  const humidity = document.getElementById("custom-humidity").value.trim();
-
-  // Kiểm tra nếu bất kỳ ô nào bị bỏ trống
-  if (temperature === "" || soilMoisture === "" || humidity === "") {
-    ok = 0;
-    alert(
-      "Vui lòng nhập đầy đủ các giá trị: Nhiệt độ, Độ ẩm đất, và Độ ẩm không khí."
-    );
-  } else {
-    // Thực hiện hành động "Áp Dụng" khi tất cả các trường đều được điền
-    // applySettings(temperature, soilMoisture, humidity);
-  }
-});
-
-function applySettings(temperature, soilMoisture, humidity) {
-  // Xử lý áp dụng các giá trị được nhập
-  console.log("Đã áp dụng các cài đặt sau:");
-  console.log("Nhiệt độ:", temperature);
-  console.log("Độ ẩm đất:", soilMoisture);
-  console.log("Độ ẩm không khí:", humidity);
-
-  // alert("Cài đặt đã được áp dụng thành công!");
-}
-
-// gợi í khi nhập trong loại thực vật
-const plantSuggestions = [
-  "cà chua",
-  "rau cải",
-  "cà rốt",
-  "bắp cải",
-  "dưa chuột",
-  "xà lách",
-  "cải bó xôi",
-  "bí đỏ",
-  "cà tím",
-  "khoai lang",
-  "củ cải đỏ",
-  "hành lá",
-  "ớt",
-  "rau dền",
-  "rau muống",
-  "cải thảo",
-  "dưa lê",
-  "cải thìa",
-  "húng quế",
-  "rau mùi",
-  "hoa cúc",
-  "cỏ mực",
-  "cúc tần",
-  "dâu tây",
-  "mía",
-  "cà phê",
-  "lúa mì",
-  "lúa",
-  "ngô",
-  "đậu tương",
-  "vừng",
-  "lạc",
-  "bạc hà",
-  "tỏi",
-  "hành tây",
-  "hành tím",
-  "mướp đắng",
-  "khoai tây",
-  "gừng",
-  "nghệ",
-  "mít",
-  "bưởi",
-  "chanh leo",
-  "nhãn",
-  "vải",
-  "mận",
-  "măng cụt",
-  "sầu riêng",
-  "táo",
-  "lê",
-];
 
 document.getElementById("plant-type").addEventListener("input", function () {
   const input = this.value.toLowerCase();
@@ -444,18 +71,15 @@ document.getElementById("plant-type").addEventListener("input", function () {
       suggestionItem.classList.add("suggestion-item");
       suggestionItem.textContent = suggestion;
       suggestionItem.onclick = function () {
-        document.getElementById("plant-type").value = suggestion; // Đặt giá trị ô nhập khi chọn
+        document.getElementById("plant-type").value = suggestion;
         suggestionsBox.innerHTML = ""; // Xóa gợi ý
         suggestionsBox.style.display = "none"; // Ẩn danh sách gợi ý
       };
       suggestionsBox.appendChild(suggestionItem);
     });
 
-    if (filteredSuggestions.length > 0) {
-      suggestionsBox.style.display = "block"; // Hiển thị danh sách gợi ý
-    } else {
-      suggestionsBox.style.display = "none"; // Ẩn nếu không có gợi ý
-    }
+    suggestionsBox.style.display =
+      filteredSuggestions.length > 0 ? "block" : "none";
   } else {
     suggestionsBox.style.display = "none"; // Ẩn nếu ô nhập rỗng
   }
@@ -468,47 +92,50 @@ document.addEventListener("click", function (event) {
     !suggestionsBox.contains(event.target) &&
     event.target.id !== "plant-type"
   ) {
-    suggestionsBox.style.display = "none"; // Ẩn danh sách gợi ý
+    suggestionsBox.style.display = "none";
   }
 });
 
-// end gợi í khi nhập trong loại thực vật
-
-document
-  .getElementById("customize-button")
-  .addEventListener("click", function () {
-    const customizationFields = document.getElementById("customization-fields");
-    customizationFields.style.display =
-      customizationFields.style.display === "none" ? "block" : "none"; // Chuyển đổi hiển thị ô nhập
-  });
-
+// Áp dụng cài đặt thủ công
+let ok = 1;
 document.getElementById("apply-button").addEventListener("click", function () {
-  const temperature = document.getElementById("custom-temperature").value;
-  const soilMoisture = document.getElementById("custom-soil-moisture").value;
-  const humidity = document.getElementById("custom-humidity").value;
+  const temperature = document
+    .getElementById("custom-temperature")
+    .value.trim();
+  const soilMoisture = document
+    .getElementById("custom-soil-moisture")
+    .value.trim();
+  const airHumidity = document.getElementById("custom-humidity").value.trim();
 
-  // Xử lý giá trị đã nhập
-  // Bạn có thể thực hiện bất kỳ hành động nào ở đây (lưu lại, cập nhật trạng thái, v.v.)
-  alert(
-    `Đã áp dụng:\nNhiệt độ: ${temperature}\nĐộ ẩm đất: ${soilMoisture}\nĐộ ẩm không khí: ${humidity}`
-  );
+  if (temperature === "" || soilMoisture === "" || airHumidity === "") {
+    ok = 0;
+    alert(
+      "Vui lòng nhập đầy đủ các giá trị: Nhiệt độ, Độ ẩm đất, và Độ ẩm không khí."
+    );
+  } else {
+    fetch("http://localhost:4000/climate/update-climate", {
+      method: "UPDATE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        temperature,
+        soilMoisture,
+        airHumidity,
+      }),
+    });
+  }
 });
 
-// Xử lí Lịch xử bơm nước
-let pumpHistory = []; // Mảng để lưu trữ lịch sử máy bơm
-
+// Cập nhật lịch sử máy bơm
+let pumpHistory = [];
 function updatePumpHistory(mode, status) {
-  const currentTime = new Date().toLocaleString(); // Lấy thời gian hiện tại với ngày, tháng, năm, giờ, phút, giây
-  const historyEntry = {
-    time: currentTime,
-    mode: mode,
-    status: status,
-  };
-  pumpHistory.push(historyEntry); // Thêm mục mới vào lịch sử
+  const currentTime = new Date().toLocaleString();
+  const historyEntry = { time: currentTime, mode, status };
+  pumpHistory.push(historyEntry);
 
-  // Cập nhật bảng hiển thị lịch sử
   const pumpHistoryTable = document.getElementById("pump-history");
-  pumpHistoryTable.innerHTML = ""; // Xóa nội dung cũ
+  pumpHistoryTable.innerHTML = ""; // Xóa bảng cũ
 
   pumpHistory.forEach((entry) => {
     const row = document.createElement("tr");
@@ -517,48 +144,49 @@ function updatePumpHistory(mode, status) {
   });
 }
 
-// Hàm cập nhật trạng thái máy bơm
-function togglePump(isOn) {
+// Cập nhật trạng thái máy bơm và lịch sử
+function togglePumpWithHistory(isOn) {
   const pumpStatus = document.getElementById("pump-status");
-  const mode = document.querySelector('input[name="pump-mode"]:checked').value; // Giả sử bạn có radio buttons để chọn chế độ
-
+  const mode = document.querySelector('input[name="pump-mode"]:checked').value;
   pumpStatus.innerText = isOn ? "Đang bật" : "Đang tắt";
 
-  // Chọn chế độ hiển thị chính xác
   const modeText = mode === "auto" ? "Chế Độ Bơm Tự Động" : "Bơm Thủ Công";
 
-  // Cập nhật lịch sử
+  fetch("http://localhost:4000/climate/update-pump-status", {
+    method: "UPDATE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      status: isOn ? "on" : "off",
+    }),
+  });
+
   updatePumpHistory(modeText, isOn ? "Bật" : "Tắt");
 }
 
-// Thiết lập tự động cập nhật lịch sử mỗi 30 phút
+// Giả lập cập nhật trạng thái máy bơm mỗi 30 phút
 setInterval(() => {
-  // Giả lập trạng thái máy bơm và chế độ
   const mode =
-    document.querySelector('input[name="pump-mode"]:checked').value || "manual"; // Mặc định là 'manual'
-  const status = Math.random() > 0.5 ? "Bật" : "Tắt"; // Giả lập trạng thái bật/tắt
-  togglePump(status === "Bật");
+    document.querySelector('input[name="pump-mode"]:checked').value || "manual";
+  const status = Math.random() > 0.5 ? "Bật" : "Tắt";
+  togglePumpWithHistory(status === "Bật");
 }, 1800000); // 30 phút
 
-// Hàm để vẽ biểu đồ
-function drawTemperatureChart(temperatureData) {
-  const ctx = document.getElementById("tracking-chart").getContext("2d");
-
-  const labels = temperatureData.map((data) => data.time); // Trục X
-  const temperatures = temperatureData.map((data) => data.temperature); // Trục Y
-
-  const myChart = new Chart(ctx, {
-    type: "line", // Hoặc 'bar' để tạo biểu đồ cột
+// Hàm vẽ biểu đồ
+function drawChart(ctx, labels, data, label) {
+  return new Chart(ctx, {
+    type: "line",
     data: {
-      labels: labels,
+      labels,
       datasets: [
         {
-          label: "Nhiệt Độ (°C)",
-          data: temperatures,
+          label,
+          data,
           borderColor: "rgba(75, 192, 192, 1)",
           backgroundColor: "rgba(75, 192, 192, 0.2)",
           borderWidth: 1,
-          fill: true, // Để có hiệu ứng đổ đầy dưới đường biểu đồ
+          fill: true,
         },
       ],
     },
@@ -566,166 +194,62 @@ function drawTemperatureChart(temperatureData) {
       scales: {
         y: {
           beginAtZero: true,
-          title: {
-            display: true,
-            text: "Nhiệt Độ (°C)",
-          },
+          title: { display: true, text: label },
         },
-        x: {
-          title: {
-            display: true,
-            text: "Thời Gian",
-          },
-        },
+        x: { title: { display: true, text: "Thời gian" } },
       },
       responsive: true,
-      plugins: {
-        legend: {
-          display: true,
-          position: "top",
-        },
-      },
     },
   });
 }
-function drawHumidityAirChart(humidityAirData) {
-  const ctx = document.getElementById("humidity-air-chart").getContext("2d");
 
-  const labels = humidityAirData.map((data) => data.time); // Trục X
-  const humidityValues = humidityAirData.map((data) => data.humidity); // Trục Y
+// Hàm vẽ các biểu đồ
+function drawClimateCharts() {
+  fetch("http://localhost:4000/climate/get-climate")
+    .then((response) => response.json())
+    .then((data) => {
+      const temperatureData = data.data.climateData.map((d) => ({
+        time: d.time,
+        temperature: d.temperature,
+      }));
+      const humidityData = data.data.climateData.map((d) => ({
+        time: d.time,
+        humidity: d.airHumidity,
+      }));
+      const soilMoistureData = data.data.climateData.map((d) => ({
+        time: d.time,
+        moisture: d.soilMoisture,
+      }));
 
-  const myChart = new Chart(ctx, {
-    type: "line", // Dạng biểu đồ đường
-    data: {
-      labels: labels,
-      datasets: [
-        {
-          label: "Độ ẩm không khí (%)",
-          data: humidityValues,
-          borderColor: "rgba(75, 192, 192, 1)",
-          backgroundColor: "rgba(75, 192, 192, 0.2)",
-          borderWidth: 1,
-          fill: true, // Để có hiệu ứng đổ đầy dưới đường biểu đồ
-        },
-      ],
-    },
-    options: {
-      scales: {
-        y: {
-          beginAtZero: true,
-          title: {
-            display: true,
-            text: "Độ ẩm không khí (%)",
-          },
-        },
-        x: {
-          title: {
-            display: true,
-            text: "Thời gian",
-          },
-        },
-      },
-      responsive: true,
-      plugins: {
-        legend: {
-          display: true,
-          position: "top",
-        },
-      },
-    },
-  });
+      drawChart(
+        document.getElementById("tracking-chart").getContext("2d"),
+        temperatureData.map((d) => d.time),
+        temperatureData.map((d) => d.temperature),
+        "Nhiệt Độ (°C)"
+      );
+      drawChart(
+        document.getElementById("humidity-air-chart").getContext("2d"),
+        humidityData.map((d) => d.time),
+        humidityData.map((d) => d.humidity),
+        "Độ ẩm không khí (%)"
+      );
+      drawChart(
+        document.getElementById("soil-moisture-chart").getContext("2d"),
+        soilMoistureData.map((d) => d.time),
+        soilMoistureData.map((d) => d.moisture),
+        "Độ ẩm đất (%)"
+      );
+    })
+    .catch((error) => console.error("Error fetching climate data:", error));
 }
-function drawSoilMoistureChart(soilMoistureData) {
-  const ctx = document.getElementById("soil-moisture-chart").getContext("2d");
 
-  const labels = soilMoistureData.map((data) => data.time); // Trục X
-  const moistureValues = soilMoistureData.map((data) => data.moisture); // Trục Y
+// Lấy dữ liệu khí hậu và vẽ biểu đồ khi tải trang
+document.addEventListener("DOMContentLoaded", drawClimateCharts);
 
-  const myChart = new Chart(ctx, {
-    type: "line", // Dạng biểu đồ đường
-    data: {
-      labels: labels,
-      datasets: [
-        {
-          label: "Độ ẩm đất (%)",
-          data: moistureValues,
-          borderColor: "rgba(75, 192, 192, 1)",
-          backgroundColor: "rgba(75, 192, 192, 0.2)",
-          borderWidth: 1,
-          fill: true, // Để có hiệu ứng đổ đầy dưới đường biểu đồ
-        },
-      ],
-    },
-    options: {
-      scales: {
-        y: {
-          beginAtZero: true,
-          title: {
-            display: true,
-            text: "Độ ẩm đất (%)",
-          },
-        },
-        x: {
-          title: {
-            display: true,
-            text: "Thời gian",
-          },
-        },
-      },
-      responsive: true,
-      plugins: {
-        legend: {
-          display: true,
-          position: "top",
-        },
-      },
-    },
-  });
-}
-// Gọi hàm vẽ biểu đồ khi trang tải
+// Cập nhật dữ liệu khí hậu mỗi 30 phút
+setInterval(drawClimateCharts, 30 * 60 * 1000);
 
-document.addEventListener("DOMContentLoaded", drawTemperatureChart);
-document.addEventListener("DOMContentLoaded", drawHumidityAirChart);
-document.addEventListener("DOMContentLoaded", drawSoilMoistureChart);
-// Hàm để vẽ biểu đồ độ ẩm không khí
-
-
-// Gọi hàm vẽ biểu đồ khi trang tải
-
-
-
-// Hàm để vẽ biểu đồ độ ẩm đất
-
-
+// Làm mới dữ liệu khí hậu khi nhấn nút
 document
   .getElementById("refresh-button")
-  .addEventListener("click", function () {
-    fetchClimateData();
-  });
-
-// Gọi hàm vẽ biểu đồ khi trang tải
-
-function fetchClimateData() {
-  fetch("http://localhost:4000/climate/get-climate?dataNumber=1")
-    .then((response) => response.json())
-    .then((response) => {
-      console.log(response);
-      document.getElementById("temperature").innerText =
-        response.data.climateData[0].temperature + "°C";
-      document.getElementById("humidity").innerText =
-        response.data.climateData[0].airHumidity + "%";
-      document.getElementById("soil-moisture").innerText =
-        response.data.climateData[0].soilMoisture + "%";
-      document.getElementById("pump-status").innerText =
-        response.data.pumpStatus === "on" ? "Đang bật" : "Đang tắt";
-    })
-    .catch((error) => {
-      console.error("Error:", error);
-    });
-}
-
-// Gọi fetch lần đầu tiên
-fetchClimateData();
-
-// Sau đó thiết lập setInterval để gọi lại fetch sau mỗi 10,000,000ms
-setInterval(fetchClimateData, 50 * 60 * 1000); // 30 phút
+  .addEventListener("click", drawClimateCharts);
