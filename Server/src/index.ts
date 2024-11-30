@@ -10,6 +10,7 @@ import climateRoutes from './routes/Climate.Routes'
 import { mqttService } from './services/MQTT.services'
 import { Climate } from './models/schema/Climate.Schema'
 import SocketService from './services/socket.services'
+import { addDataController } from './controllers/Climate.Controller'
 
 dotenv.config()
 
@@ -58,7 +59,14 @@ app.use('/climate', climateRoutes)
 
 // Connect to the database and MQTT service
 databaseService.run()
-mqttService.connect()
+mqttService.connect().then(() => {
+  mqttService.subscribe('esp8266/sendData')
+  mqttService.onMessage((topic, message) => {
+    console.log(`Received message on topic "${topic}": ${message.toString()}`)
+    const data = JSON.parse(message.toString())
+    addDataController(data)
+  })
+})
 
 // Start the server with Socket.IO and Express
 const port = process.env.PORT || 3000

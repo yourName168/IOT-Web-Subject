@@ -7,8 +7,8 @@ const checkCondition = (value: number, min: number, max: number) => {
   return value >= min && value <= max
 }
 
-export const addDataController = async (req: Request, res: Response) => {
-  const { temperature, soilMoisture, airHumidity } = req.body as unknown as Climate
+export const addDataController = async (req: any) => {
+  const { temperature, soilMoisture, airHumidity } = req as unknown as Climate
   const result = await climateServices.addClimateData(temperature, soilMoisture, airHumidity)
   const pumpData = (await climateServices.getPumpStatus()) as any
   const [minTemPerature, maxTemperature] = pumpData.temperature.split('-')
@@ -31,12 +31,6 @@ export const addDataController = async (req: Request, res: Response) => {
       ...pumpData,
       status: newPumpStatus
     })
-  }
-
-  if (result) {
-    return res.status(200).json({ message: 'update Climate successfully' })
-  } else {
-    return res.status(500).json({ message: 'Failed to update climate' })
   }
 }
 
