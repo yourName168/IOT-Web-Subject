@@ -111,44 +111,12 @@
 
         <!-- Chế Độ Bơm Tự Động -->
         <div id="automatic-controls" style="display: none">
-          <h4>Chế Độ Bơm Tự Động</h4>
-          <label for="water-amount">Lượng nước (L):</label>
-          <input
-            type="number"
-            id="water-amount"
-            placeholder="Nhập lượng nước"
-          />
-          <br />
-          <div class="row">
-            <div class="w-100">
-              <label for="time-set">Chọn giờ:</label>
-              <input type="time" id="time-set" />
-            </div>
-            <div class="w-100">
-              <label for="date-set">Chọn ngày:</label>
-              <input type="date" id="date-set" />
-            </div>
-            <div class="w-100">
-              <label for="repeat-set">Lặp lại:</label>
-              <select id="repeat-set">
-                <option value="Không">Không</option>
-                <option value="Hằng ngày">Hằng ngày</option>
-                <option value="Hằng tuần">Hằng tuần</option>
-              </select>
-            </div>
-            <div class="w-100"></div>
-
-            <button onclick="setAutoPump()">Lưu</button>
-          </div>
-
-          <button onclick="togglePump(true)">Bật Bơm</button>
-          <button onclick="togglePump(false)">Tắt Bơm</button>
         </div>
       </section>
 
       <section id="plant-management">
         <h3>Quản Lý Cây Trồng</h3>
-        <form id="plant-form">
+        <form id="plant-form" name=plant-name>
           <input
             type="text"
             id="plant-type"
@@ -164,7 +132,7 @@
           <!-- Danh sách gợi ý -->
           <br />
           <div class="row">
-            <button type="submit">Tìm Kiếm</button>
+            <button type="submit" id="find-plan-environment">Tìm Kiếm</button>
             <button type="button" id="customize-button">Tùy Chỉnh</button>
           </div>
 
@@ -173,6 +141,7 @@
             <input
               type="number"
               id="custom-temperature"
+              name="custom-temperature"
               placeholder="Nhập nhiệt độ"
               required
             />
@@ -181,6 +150,7 @@
             <label for="custom-soil-moisture">Độ ẩm đất (%):</label> <br />
             <input
               type="number"
+              name="custom-soil-moisture"
               id="custom-soil-moisture"
               placeholder="Nhập độ ẩm đất"
               required
@@ -190,18 +160,17 @@
             <label for="custom-humidity">Độ ẩm không khí (%):</label> <br />
             <input
               type="number"
+              name="custom-humidity"
               id="custom-humidity"
               placeholder="Nhập độ ẩm không khí"
               required
             />
             <br />
 
-            <button type="button" id="apply-button" onclick="applySettings()">
-              Áp Dụng
-            </button>
+            
           </div>
         </form>
-        <div id="ideal-conditions" style="display: none">
+        <div id="ideal-conditions" >
           <h4>Điều Kiện Lý Tưởng</h4>
           <table id="suggested-conditions">
             <thead>
@@ -219,6 +188,9 @@
               </tr>
             </tbody>
           </table>
+          <button type="button" id="apply-button" onclick="applySettings()">
+            Áp Dụng
+          </button>
         </div>
       </section>
 
@@ -250,5 +222,8 @@
     </main>
     <script src="js/dashboard.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+
+    </script>
   </body>
 </html>

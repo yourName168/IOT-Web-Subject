@@ -1,5 +1,14 @@
 // Hàm chuyển đổi giữa chế độ thủ công và tự động
-function toggleMode(mode) {
+async function toggleMode(mode) {
+  await fetch("http://localhost:4000/climate/update-pump-status", {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      isManualPump: mode === "manual",
+    }),
+  });
   const manualControls = document.getElementById("manual-controls");
   const automaticControls = document.getElementById("automatic-controls");
 
@@ -20,7 +29,7 @@ async function togglePump(isOn) {
   const oldValue = await fetch("http://localhost:4000/climate/get-pump-status");
 
   fetch("http://localhost:4000/climate/update-pump-status", {
-    method: "UPDATE",
+    method: "put",
     headers: {
       "Content-Type": "application/json",
     },
@@ -56,35 +65,6 @@ function logout() {
   window.location.href = "index.html"; // Quay về trang chính
 }
 
-document.getElementById("plant-type").addEventListener("input", function () {
-  const input = this.value.toLowerCase();
-  const suggestionsBox = document.getElementById("suggestions");
-  suggestionsBox.innerHTML = ""; // Xóa gợi ý cũ
-
-  if (input) {
-    const filteredSuggestions = plantSuggestions.filter((plant) =>
-      plant.toLowerCase().includes(input)
-    );
-
-    filteredSuggestions.forEach((suggestion) => {
-      const suggestionItem = document.createElement("div");
-      suggestionItem.classList.add("suggestion-item");
-      suggestionItem.textContent = suggestion;
-      suggestionItem.onclick = function () {
-        document.getElementById("plant-type").value = suggestion;
-        suggestionsBox.innerHTML = ""; // Xóa gợi ý
-        suggestionsBox.style.display = "none"; // Ẩn danh sách gợi ý
-      };
-      suggestionsBox.appendChild(suggestionItem);
-    });
-
-    suggestionsBox.style.display =
-      filteredSuggestions.length > 0 ? "block" : "none";
-  } else {
-    suggestionsBox.style.display = "none"; // Ẩn nếu ô nhập rỗng
-  }
-});
-
 // Ẩn danh sách gợi ý khi người dùng nhấp ra ngoài
 document.addEventListener("click", function (event) {
   const suggestionsBox = document.getElementById("suggestions");
@@ -98,34 +78,34 @@ document.addEventListener("click", function (event) {
 
 // Áp dụng cài đặt thủ công
 let ok = 1;
-document.getElementById("apply-button").addEventListener("click", function () {
-  const temperature = document
-    .getElementById("custom-temperature")
-    .value.trim();
-  const soilMoisture = document
-    .getElementById("custom-soil-moisture")
-    .value.trim();
-  const airHumidity = document.getElementById("custom-humidity").value.trim();
+// document.getElementById("apply-button").addEventListener("click", function () {
+//   const temperature = document
+//     .getElementById("custom-temperature")
+//     .value.trim();
+//   const soilMoisture = document
+//     .getElementById("custom-soil-moisture")
+//     .value.trim();
+//   const airHumidity = document.getElementById("custom-humidity").value.trim();
 
-  if (temperature === "" || soilMoisture === "" || airHumidity === "") {
-    ok = 0;
-    alert(
-      "Vui lòng nhập đầy đủ các giá trị: Nhiệt độ, Độ ẩm đất, và Độ ẩm không khí."
-    );
-  } else {
-    fetch("http://localhost:4000/climate/update-climate", {
-      method: "UPDATE",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        temperature,
-        soilMoisture,
-        airHumidity,
-      }),
-    });
-  }
-});
+//   if (temperature === "" || soilMoisture === "" || airHumidity === "") {
+//     ok = 0;
+//     alert(
+//       "Vui lòng nhập đầy đủ các giá trị: Nhiệt độ, Độ ẩm đất, và Độ ẩm không khí."
+//     );
+//   } else {
+//     fetch("http://localhost:4000/climate/update-climate", {
+//       method: "UPDATE",
+//       headers: {
+//         "Content-Type": "application/json",
+//       },
+//       body: JSON.stringify({
+//         temperature,
+//         soilMoisture,
+//         airHumidity,
+//       }),
+//     });
+//   }
+// });
 
 // Cập nhật lịch sử máy bơm
 let pumpHistory = [];
@@ -203,21 +183,50 @@ function drawChart(ctx, labels, data, label) {
   });
 }
 
+function convertISOToDateTime(isoString) {
+  const date = new Date(isoString);
+
+  // Lấy ngày, tháng, năm
+  const year = date.getUTCFullYear();
+  const month = (date.getUTCMonth() + 1).toString().padStart(2, '0');  // Tháng bắt đầu từ 0
+  const day = date.getUTCDate().toString().padStart(2, '0');
+
+  // Lấy giờ, phút, giây
+  const hours = date.getUTCHours().toString().padStart(2, '0');
+  const minutes = date.getUTCMinutes().toString().padStart(2, '0');
+  const seconds = date.getUTCSeconds().toString().padStart(2, '0');
+
+  // Trả về chuỗi ngày giờ theo định dạng "YYYY-MM-DD HH:mm:ss"
+  return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+}
+
 // Hàm vẽ các biểu đồ
 function drawClimateCharts() {
   fetch("http://localhost:4000/climate/get-climate")
     .then((response) => response.json())
     .then((data) => {
+      const firstData = data.data.climateData[0];
+      const temperature = document.getElementById("temperature");
+      const humidity = document.getElementById("humidity");
+      const soilMoisture = document.getElementById("soil-moisture");
+      const pumpStatus = document.getElementById("pump-status");
+
+      pumpStatus.innerText =
+        data.data.pumpStatus === "on" ? "Đang bật" : "Đang tắt";
+      temperature.innerText = firstData.temperature + "°C";
+      humidity.innerText = firstData.airHumidity + "%";
+      soilMoisture.innerText = firstData.soilMoisture + "%";
+
       const temperatureData = data.data.climateData.map((d) => ({
-        time: d.time,
+        time: convertISOToDateTime(d.time),
         temperature: d.temperature,
       }));
       const humidityData = data.data.climateData.map((d) => ({
-        time: d.time,
+        time: convertISOToDateTime(d.time),
         humidity: d.airHumidity,
       }));
       const soilMoistureData = data.data.climateData.map((d) => ({
-        time: d.time,
+        time: convertISOToDateTime(d.time),
         moisture: d.soilMoisture,
       }));
 
@@ -253,3 +262,60 @@ setInterval(drawClimateCharts, 30 * 60 * 1000);
 document
   .getElementById("refresh-button")
   .addEventListener("click", drawClimateCharts);
+
+document
+  .getElementById("find-plan-environment")
+  .addEventListener("click", async function () {
+    const plantType = document.getElementById("plant-type").value;
+    console.log(plantType);
+    await fetch(
+      `http://localhost:4000/climate/get-plant-environment`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          plantName: plantType,
+        }),
+      }
+    )
+      .then((response) => {
+        document.getElementById("suggested-conditions").style.display = "block";
+        return response.json();
+      })
+      .then((plantEnvironment) => {
+        const idealTemperature = document.getElementById("ideal-temperature");
+        const idealHumidity = document.getElementById("ideal-humidity");
+        const idealSoilMoisture = document.getElementById(
+          "ideal-soil-moisture"
+        );
+
+        idealTemperature.innerText = plantEnvironment.data.temperature + " °C";
+        idealHumidity.innerText = plantEnvironment.data.airHumidity + " %";
+        idealSoilMoisture.innerText = plantEnvironment.data.soilMoisture + " %";
+      });
+  });
+const applySettings = async () => {
+  const temperature = document.getElementById("ideal-temperature").innerHTML.split(" ")[0]
+  const soilMoisture = document.getElementById("ideal-soil-moisture").innerHTML.split(" ")[0]
+  const airHumidity = document.getElementById("ideal-humidity").innerHTML.split(" ")[0]
+  console.log(temperature, soilMoisture, airHumidity)
+
+  await fetch("http://localhost:4000/climate/update-pump-status", {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      temperature,
+      soilMoisture,
+      airHumidity,
+    }),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data);
+    })
+    .catch((error) => console.error("Error updating climate data:", error));
+};
