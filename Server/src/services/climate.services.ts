@@ -18,7 +18,7 @@ class ClimateServices {
       .sort({ time: -1 }) // Sắp xếp giảm dần theo currentTime (từ mới nhất đến cũ nhất)
       .limit(dataNumber) // Giới hạn số lượng kết quả
       .toArray()
-    console.log(result)
+    // console.log(result)
     const pumpStatus = await databaseService.getCollection('pump-status').findOne()
     return {
       climateData: result,

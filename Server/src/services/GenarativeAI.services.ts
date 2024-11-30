@@ -56,8 +56,8 @@ class PlantEnvironmentAPIService {
             Return ONLY a JSON object in this exact format, with no additional text or formatting:
             {
                 "temperature": "min-max °C",
-                "soilMoisture": "min-max %",
-                "airHumidity": "min-max %",
+                "soilMoisture": "min-max  %",
+                "airHumidity": "min-max  %",
                 "light": ""
             }`
 
@@ -74,6 +74,14 @@ class PlantEnvironmentAPIService {
       let parsedResponse: PlantEnvironment
       try {
         parsedResponse = JSON.parse(text)
+        parsedResponse = {
+          temperature: parsedResponse.temperature.split(' ')[0].trim(),
+          soilMoisture: parsedResponse.soilMoisture.split(' ')[0].trim(),
+          airHumidity: parsedResponse.airHumidity.split(' ')[0].trim(),
+          light: parsedResponse.light.split(' ')[0].trim(),
+          plantName: plantName
+        }
+        console.log('Parsed response:', parsedResponse)
       } catch (parseError) {
         console.error('JSON Parse Error:', parseError)
         throw new Error('Invalid response format')
@@ -85,11 +93,11 @@ class PlantEnvironmentAPIService {
         throw new Error('Incomplete data in response')
       }
 
-      // Validate the format of the data
-      this.validateFormat(temperature, 'temperature')
-      this.validateFormat(soilMoisture, 'soilMoisture')
-      this.validateFormat(airHumidity, 'airHumidity')
-      this.validateFormat(light, 'light')
+      // // Validate the format of the data
+      // this.validateFormat(temperature, 'temperature')
+      // this.validateFormat(soilMoisture, 'soilMoisture')
+      // this.validateFormat(airHumidity, 'airHumidity')
+      // this.validateFormat(light, 'light')
 
       return {
         temperature,

@@ -40,7 +40,7 @@ class MQTTService {
         if (err) {
           console.error(`Failed to publish to topic "${topic}":`, err.message)
         } else {
-          // console.log(`Message published to topic "${topic}": ${message}`)
+          console.log(`Message published to topic "${topic}": ${message}`)
         }
       })
     } else {

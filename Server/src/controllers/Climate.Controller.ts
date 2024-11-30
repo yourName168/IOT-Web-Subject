@@ -60,6 +60,10 @@ export const getPumpStatusController = async (req: Request, res: Response) => {
 }
 
 export const updatePumpStatusController = async (req: Request, res: Response) => {
+  const { status } = req.body
+  if (status) {
+    await mqttService.publish('esp8266/pumpStatus', status)
+  }
   const result = await climateServices.updatePumpStatus(req.body)
   await climateServices.addPumpHistory(req.body)
   if (result) {
