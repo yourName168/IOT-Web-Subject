@@ -25,7 +25,6 @@ async function toggleMode(mode) {
 async function togglePump(isOn) {
   const pumpStatus = document.getElementById("pump-status");
   pumpStatus.innerText = isOn ? "Đang bật" : "Đang tắt";
-
   const oldValue = await fetch("http://localhost:4000/climate/get-pump-status");
 
   fetch("http://localhost:4000/climate/update-pump-status", {
@@ -319,3 +318,11 @@ const applySettings = async () => {
     })
     .catch((error) => console.error("Error updating climate data:", error));
 };
+
+
+// sửa giao diện 
+// Lấy phần tử nút và thanh trượt
+
+
+
+// sửa giao diện

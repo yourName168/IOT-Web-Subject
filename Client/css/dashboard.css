@@ -1,119 +1,168 @@
+/* code cũ  */
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    background-color: #f0f8ff; /* Màu nền nhẹ nhàng */
-    font-size: 16px;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background-color: #f0f8ff; /* Màu nền nhẹ nhàng */
+  font-size: 16px;
 }
 
 header {
-    background-color: #4CAF50; /* Màu xanh lá cây cho header */
-    color: white;
-    padding: 15px;
-    text-align: center;
+  background-color: #4caf50; /* Màu xanh lá cây cho header */
+  color: white;
+  padding: 15px;
+  text-align: center;
 }
 
 main {
-    padding: 20px;
+  background: #f9f9f9;
 }
 .error-message {
-    color: red; /* Màu đỏ cho thông báo lỗi */
-    margin-top: 10px;
+  color: red; /* Màu đỏ cho thông báo lỗi */
+  margin-top: 10px;
 }
 
 table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px; /* Khoảng cách phía trên bảng */
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px; /* Khoảng cách phía trên bảng */
 }
 
-table, th, td {
-    border: 1px solid #4CAF50; /* Màu xanh lá cây cho đường viền bảng */
+table,
+th,
+td {
+  border: 1px solid #4caf50; /* Màu xanh lá cây cho đường viền bảng */
 }
 
-th, td {
-    padding: 10px;
-    text-align: center;
+th,
+td {
+  padding: 10px;
+  text-align: center;
 }
 
 .d-inline {
-    display: inline;
+  display: inline;
 }
 
 button {
-    background-color: #4CAF50; /* Màu xanh lá cây cho nút */
-    color: white; /* Chữ màu trắng trên nút */
-    border: none;
-    border-radius: 5px; /* Bo tròn góc nút */
-    padding: 10px 15px;
-    cursor: pointer; /* Hiệu ứng con trỏ khi di chuột qua nút */
-    margin: 5px; /* Khoảng cách giữa các nút */
+  background-color: #4caf50; /* Màu xanh lá cây cho nút */
+  color: white; /* Chữ màu trắng trên nút */
+  border: none;
+  border-radius: 5px; /* Bo tròn góc nút */
+  padding: 10px 15px;
+  cursor: pointer; /* Hiệu ứng con trỏ khi di chuột qua nút */
+  margin: 5px; /* Khoảng cách giữa các nút */
 }
 
 button:hover {
-    background-color: #45a049; /* Màu sắc khi di chuột qua nút */
+  background-color: #45a049; /* Màu sắc khi di chuột qua nút */
 }
 
 input[type="text"],
 input[type="password"],
 input[type="number"] {
-    width: 90%; /* Chiều rộng 100% cho ô nhập liệu */
-    padding: 10px;
-    margin: 10px 0; /* Khoảng cách trên và dưới */
-    border: 1px solid #ccc; /* Đường viền nhẹ cho ô nhập liệu */
-    border-radius: 5px; /* Bo tròn góc ô nhập liệu */
+  width: 97% !important ; /* Chiều rộng 100% cho ô nhập liệu */
+  padding: 10px;
+  margin: 10px 0; /* Khoảng cách trên và dưới */
+  border: 1px solid #ccc; /* Đường viền nhẹ cho ô nhập liệu */
+  border-radius: 5px; /* Bo tròn góc ô nhập liệu */
 }
 
 /* loại thực vật */
 .suggestions-box {
-    position: absolute;
-    border: 1px solid #ccc; /* Đường viền cho danh sách gợi ý */
-    background-color: white; /* Nền trắng cho danh sách gợi ý */
-    width: 100%; /* Chiều rộng bằng với ô nhập */
-    max-height: 150px; /* Chiều cao tối đa cho danh sách gợi ý */
-    overflow-y: auto; /* Cuộn nếu nội dung vượt quá chiều cao */
-    z-index: 1000; /* Đảm bảo danh sách gợi ý hiển thị trên các phần khác */
+  position: absolute;
+  border: 1px solid #ccc; /* Đường viền cho danh sách gợi ý */
+  background-color: white; /* Nền trắng cho danh sách gợi ý */
+  width: 100%; /* Chiều rộng bằng với ô nhập */
+  max-height: 150px; /* Chiều cao tối đa cho danh sách gợi ý */
+  overflow-y: auto; /* Cuộn nếu nội dung vượt quá chiều cao */
+  z-index: 1000; /* Đảm bảo danh sách gợi ý hiển thị trên các phần khác */
 }
 
 .suggestion-item {
-    padding: 10px; /* Khoảng cách cho từng mục gợi ý */
-    cursor: pointer; /* Hiệu ứng con trỏ khi di chuột qua */
+  padding: 10px; /* Khoảng cách cho từng mục gợi ý */
+  cursor: pointer; /* Hiệu ứng con trỏ khi di chuột qua */
 }
 
 .suggestion-item:hover {
-    background-color: #e0e0e0; /* Màu nền khi di chuột qua mục gợi ý */
+  background-color: #e0e0e0; /* Màu nền khi di chuột qua mục gợi ý */
 }
 /* end loại thực vật */
 
 canvas {
-    width: 75% !important;
+  width: 65% !important;
 }
 
 lable {
-    margin-right: 5px;
+  margin-right: 5px;
 }
 /* outline input  */
 input:focus {
-    border: 1px solid #72b875;
-    outline: none; /* Bỏ viền mặc định của trình duyệt */
+  border: 1px solid #72b875;
+  outline: none; /* Bỏ viền mặc định của trình duyệt */
 }
 
 .w-100 {
-    display: inline;
+  display: inline;
+}
+
+.d-flex {
+  display: flex;
 }
 
 @media screen and (max-width: 576px) {
-    .w-100 {
-        display: block;
-        margin-bottom: 10px;
-        /* width: 100%; */
-    }
-    body, button {
-        font-size: 12px;
-    }
-    canvas {
-        width: 100% !important;
-    }
-    button {
-        padding: 7px 10px;
-    }
+  .w-100 {
+    display: block;
+    margin-bottom: 10px;
+    /* width: 100%; */
+  }
+  body,
+  button {
+    font-size: 12px;
+  }
+  canvas {
+    width: 100% !important;
+  }
+  button {
+    padding: 7px 10px;
+  }
 }
+
+/* sửa giao diện  */
+/* code sửa thông tin thời gian thưc  */
+
+#system-overview {
+  padding: 20px;
+  background: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.info-card {
+  flex: 1;
+  margin-right: 10px;
+  padding: 15px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+#refresh-button {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#refresh-button:hover {
+  background-color: #059207 !important;
+}
+
+#tracking-charts {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+/* end code sửa thông tin thời gian thưc  */

@@ -5,41 +5,47 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>SmartGarden</title>
     <link rel="icon" href="./logo.png" type="image/png" />
-    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous"> -->
+    <link rel="stylesheet" href="base.css">
     <link rel="stylesheet" href="css/dashboard.css" />
-    <!-- Sử dụng tệp CSS cho dashboard -->
+     
   </head>
-
+<!-- code cũ đây  -->
   <body>
     <header>
       <h2>Hệ Thống Quản Lý Vườn Thông Minh</h2>
     </header>
     <main>
-      <section id="system-overview">
-        <h3>
-          Thông Tin Thời Gian Thực
-          <span style="font-weight: 500">(Dữ liệu được cập nhật 30'/lần)</span>
-        </h3>
-        <button id="refresh-button">Làm mới</button>
-        <table>
-          <thead>
-            <tr>
-              <th>Nhiệt độ không khí</th>
-              <th>Độ ẩm không khí</th>
-              <th>Độ ẩm đất</th>
-              <th>Trạng thái máy bơm</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td id="temperature"></td>
-              <td id="humidity"></td>
-              <td id="soil-moisture"></td>
-              <td id="pump-status"></td>
-            </tr>
-          </tbody>
-        </table>
+      <!-- code sửa thông tin thời gian thưc -->
+      <section id="system-overview" style="padding: 20px; background: #f9f9f9; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+        <div class="d-flex" style="justify-content: space-between; align-items: center;">
+          <h3 style="font-family: 'Roboto', sans-serif;">
+            Thông Tin Thời Gian Thực
+            <span style="font-weight: 500">(Dữ liệu được cập nhật 30'/lần)</span>
+          </h3>
+          <button id="refresh-button" style="background-color: #4CAF50; color: white; border: none; padding: 10px 15px; border-radius: 5px; cursor: pointer;">Làm mới</button>
+        </div>
+        
+        <div style="display: flex; justify-content: space-between; margin-top: 20px;">
+          <div class="info-card" style="flex: 1; margin-right: 10px; padding: 15px; background: #fff; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); text-align: center;">
+            <h4>Nhiệt độ không khí</h4>
+            <p id="temperature" style="font-size: 24px; font-weight: bold;"></p>
+          </div>
+          <div class="info-card" style="text-align: center; flex: 1; margin-right: 10px; padding: 15px; background: #fff; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+            <h4>Độ ẩm không khí</h4>
+            <p id="humidity" style="font-size: 24px; font-weight: bold;"></p>
+          </div>
+          <div class="info-card" style="text-align: center; flex: 1; margin-right: 10px; padding: 15px; background: #fff; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+            <h4>Độ ẩm đất</h4>
+            <p id="soil-moisture" style="font-size: 24px; font-weight: bold;"></p>
+          </div>
+          <div class="info-card" style=" text-align: center; flex: 1; padding: 15px; background: #fff; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+            <h4>Trạng thái máy bơm</h4>
+            <p id="pump-status" style="font-size: 24px; font-weight: bold;"></p>
+          </div>
+        </div>
       </section>
+      <!-- end code sửa thông tin thời gian thưc -->
+
       <!-- <section id="pump-management">
             <h3>Quản Lý Máy Bơm</h3>
             <div>
@@ -76,10 +82,11 @@
                 
             </div>
         </section> -->
-      <section id="pump-management">
+
+
+      <!-- <section id="pump-management">
         <h3>Quản Lý Bơm nước</h3>
 
-        <!-- Radio buttons để chọn chế độ -->
         <div>
           <label>
             <input
@@ -89,7 +96,6 @@
               onclick="toggleMode('manual')"
               checked
             />
-            Chế Độ Bơm Thủ Công
           </label>
           <label>
             <input
@@ -98,23 +104,63 @@
               id="automatic-mode"
               onclick="toggleMode('automatic')"
             />
-            Chế Độ Bơm Tự Động
           </label>
         </div>
 
-        <!-- Chế Độ Bơm Thủ Công -->
         <div id="manual-controls">
           <h4>Chế Độ Bơm Thủ Công</h4>
           <button onclick="togglePump(true)">Bật Bơm</button>
           <button onclick="togglePump(false)">Tắt Bơm</button>
         </div>
 
-        <!-- Chế Độ Bơm Tự Động -->
         <div id="automatic-controls" style="display: none">
         </div>
-      </section>
+      </section> -->
 
-      <section id="plant-management">
+
+      
+        <!-- code sửa quản lý bơm nước  -->
+        <section id="pump-management" style="padding: 20px; background: #f9f9f9; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+          <h3 style="font-family: 'Roboto', sans-serif;">Quản Lý Bơm nước</h3>
+        
+          <!-- Radio buttons để chọn chế độ -->
+          <div style="margin-bottom: 20px;">
+            <label style="margin-right: 20px;">
+              <input
+                type="radio"
+                name="pump-mode"
+                id="manual-mode"
+                onclick="toggleMode('manual')"
+                checked
+                style="margin-right: 5px;"
+              />
+              Chế Độ Bơm Thủ Công
+            </label>
+            <label>
+              <input
+                type="radio"
+                name="pump-mode"
+                id="automatic-mode"
+                onclick="toggleMode('automatic')"
+                style="margin-right: 5px;"
+              />
+              Chế Độ Bơm Tự Động
+            </label>
+          </div>
+        
+          <!-- Chế Độ Bơm Thủ Công -->
+          <div id="manual-controls" style="margin-top: 20px;">
+            <h4 style="font-family: 'Roboto', sans-serif;">Chế Độ Bơm Thủ Công</h4>
+            <button onclick="togglePump(true)" style="background-color: #4CAF50; color: white; border: none; padding: 10px 15px; border-radius: 5px; cursor: pointer; margin-right: 10px;">Bật Bơm</button>
+            <button onclick="togglePump(false)" style="background-color: #f44336; color: white; border: none; padding: 10px 15px; border-radius: 5px; cursor: pointer;">Tắt Bơm</button>
+          </div>
+        </section>
+        <!-- end code sửa quản lý bơm nước  -->
+
+      <!-- <section id="plant-management">
+
+
+
         <h3>Quản Lý Cây Trồng</h3>
         <form id="plant-form" name=plant-name>
           <input
@@ -129,7 +175,6 @@
             class="suggestions-box"
             style="display: none"
           ></div>
-          <!-- Danh sách gợi ý -->
           <br />
           <div class="row">
             <button type="submit" id="find-plan-environment">Tìm Kiếm</button>
@@ -192,18 +237,96 @@
             Áp Dụng
           </button>
         </div>
+      </section> -->
+      <!-- code sửa quản lý cây trồng  -->
+      <section id="plant-management" style="padding: 20px; background: #f9f9f9; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+        <h3 style="font-family: 'Roboto', sans-serif;">Quản Lý Cây Trồng</h3>
+        <form id="plant-form" name="plant-name">
+          <input
+            type="text"
+            id="plant-type"
+            placeholder="Loại thực vật"
+            required
+            autocomplete="off"
+            style="width: 100%; padding: 10px; border-radius: 5px; border: 1px solid #ccc;"
+          />
+          <div id="suggestions" class="suggestions-box" style="display: none;"></div>
+          <br />
+          
+          <div style="margin-top: 20px; display: flex; justify-content: space-between;">
+            <button type="submit" id="find-plan-environment" style="background-color: #4CAF50; color: white; border: none; padding: 10px 15px; border-radius: 5px; cursor: pointer;">Tìm Kiếm</button>
+            <button type="button" id="customize-button" style="background-color: #2196F3; color: white; border: none; padding: 10px 15px; border-radius: 5px; cursor: pointer;">Tùy Chỉnh</button>
+          </div>
+      
+          <div id="customization-fields" style="display: none; margin-top: 20px;">
+            <label for="custom-temperature">Nhiệt độ(°C) :</label>
+            <input
+              type="number"
+              id="custom-temperature"
+              name="custom-temperature"
+              placeholder="Nhập nhiệt độ"
+              required
+              style="width: 100%; padding: 10px; border-radius: 5px; border: 1px solid #ccc;"
+            />
+            <br />
+      
+            <label for="custom-soil-moisture">Độ ẩm đất (%):</label>
+            <input
+              type="number"
+              name="custom-soil-moisture"
+              id="custom-soil-moisture"
+              placeholder="Nhập độ ẩm đất"
+              required
+              style="width: 100%; padding: 10px; border-radius: 5px; border: 1px solid #ccc;"
+            />
+            <br />
+      
+            <label for="custom-humidity">Độ ẩm không khí (%):</label>
+            <input
+              type="number"
+              name="custom-humidity"
+              id="custom-humidity"
+              placeholder="Nhập độ ẩm không khí"
+              required
+              style="width: 100%; padding: 10px; border-radius: 5px; border: 1px solid #ccc;"
+            />
+            <br />
+          </div>
+        </form>
+      
+        <div id="ideal-conditions" style="margin-top: 20px;">
+          <h4 style="font-family: 'Roboto', sans-serif;">Điều Kiện Lý Tưởng</h4>
+          <div style="display: flex; justify-content: space-between; background: #fff; padding: 15px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+            <div style="flex: 1; text-align: center;">
+              <h5 style="font-size: 18px;">Nhiệt độ lý tưởng</h5>
+              <p id="ideal-temperature">-</p>
+            </div>
+            <div style="flex: 1; text-align: center;">
+              <h5 style="font-size: 18px;">Độ ẩm đất lý tưởng</h5>
+              <p id="ideal-soil-moisture">-</p>
+            </div>
+            <div style="flex: 1; text-align: center;">
+              <h5 style="font-size: 18px;">Độ ẩm không khí lý tưởng</h5>
+              <p id="ideal-humidity">-</p>
+            </div>
+          </div>
+          <button type="button" id="apply-button" onclick="applySettings()" style="background-color: #4CAF50; color: white; border: none; padding: 10px 15px; border-radius: 5px; cursor: pointer; margin-top: 15px;">Áp Dụng</button>
+        </div>
       </section>
+
+
+      <!-- end code sửa quản lý cây trồng  -->
+
 
       <section id="tracking-charts">
         <h3>Biểu Đồ Theo Dõi</h3>
-        <canvas id="tracking-chart" width="400" height="200"></canvas>
-        <canvas id="humidity-air-chart" width="400" height="200"></canvas>
-        <!-- Biểu đồ độ ẩm không khí -->
-        <canvas id="soil-moisture-chart" width="400" height="200"></canvas>
-        <!-- Biểu đồ độ ẩm đất -->
+        <canvas id="tracking-chart" width="400" height="100" style="margin-bottom: 50px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);"></canvas>
+        <canvas id="humidity-air-chart" width="400" height="100" style="    margin-bottom: 50px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);"></canvas>
+        <canvas id="soil-moisture-chart" width="400" height="100" style="    margin-bottom: 50px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);"></canvas>
       </section>
 
-      <section id="activity-history">
+
+      <!-- <section id="activity-history">
         <h3>Lịch Sử Hoạt Động</h3>
         <table id="pump-history-table">
           <thead>
@@ -214,9 +337,28 @@
             </tr>
           </thead>
           <tbody id="pump-history"></tbody>
-          <!-- Nơi dữ liệu lịch sử sẽ được thêm vào -->
         </table>
+      </section> -->
+
+      <!-- code sửa lịch sử hoạt động  -->
+      <section id="activity-history" style="padding: 20px; background: #f9f9f9; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+        <h3 style="font-family: 'Roboto', sans-serif;">Lịch Sử Hoạt Động</h3>
+        <div style="overflow-x: auto;">
+          <table id="pump-history-table" style="width: 100%; border-collapse: collapse; margin-top: 20px;">
+            <thead>
+              <tr style="background-color: #4CAF50; color: white;">
+                <th style="padding: 10px; border: 1px solid #ddd;">Thời gian</th>
+                <th style="padding: 10px; border: 1px solid #ddd;">Chế độ</th>
+                <th style="padding: 10px; border: 1px solid #ddd;">Trạng thái</th>
+              </tr>
+            </thead>
+            <tbody id="pump-history">
+              <!-- Dữ liệu sẽ được thêm vào đây -->
+            </tbody>
+          </table>
+        </div>
       </section>
+      <!-- endcode sửa lịch sử hoạt động  -->
 
       <button onclick="logout()">Đăng Xuất</button>
     </main>
