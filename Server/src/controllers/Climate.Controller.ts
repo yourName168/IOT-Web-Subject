@@ -17,11 +17,11 @@ export const addDataController = async (req: any) => {
 
   let newPumpStatus = 'off'
 
-  if (
-    checkCondition(temperature, Number(minTemPerature), Number(maxTemperature)) &&
-    checkCondition(soilMoisture, Number(minSoilMoisture), Number(maxSoilMoisture)) &&
-    checkCondition(airHumidity, Number(minAirHumidity), Number(maxAirHumidity))
-  ) {
+  if (soilMoisture < Number(minSoilMoisture)) {
+    newPumpStatus = 'on'
+  } else if (soilMoisture > Number(maxSoilMoisture)) {
+    newPumpStatus = 'off'
+  } else if (temperature > Number(maxTemperature)) {
     newPumpStatus = 'on'
   }
 
