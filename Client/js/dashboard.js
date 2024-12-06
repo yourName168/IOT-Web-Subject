@@ -280,7 +280,7 @@ document
       }
     )
       .then((response) => {
-        document.getElementById("suggested-conditions").style.display = "block";
+        document.getElementById("suggested-conditions").style.display = "flex";
         return response.json();
       })
       .then((plantEnvironment) => {
@@ -290,9 +290,19 @@ document
           "ideal-soil-moisture"
         );
 
+        // document.getElementById("custom-temperature").value = "29-9";
+        document.getElementById("custom-temperature").value = plantEnvironment.data.temperature;
+        document.getElementById("custom-soil-moisture").value = plantEnvironment.data.soilMoisture;
+        document.getElementById("custom-humidity").value = plantEnvironment.data.airHumidity;
+
         idealTemperature.innerText = plantEnvironment.data.temperature + " °C";
         idealHumidity.innerText = plantEnvironment.data.airHumidity + " %";
         idealSoilMoisture.innerText = plantEnvironment.data.soilMoisture + " %";
+
+        idealTemperature = idealTemperature.textContent.trim();
+
+        
+        
       });
   });
 const applySettings = async () => {
@@ -323,6 +333,18 @@ const applySettings = async () => {
 // sửa giao diện 
 // Lấy phần tử nút và thanh trượt
 
+// custom nhiệt độ 
+const customizeButton = document.getElementById("customize-button");
+const customizationFields = document.getElementById("customization-fields");
 
+// Lắng nghe sự kiện click trên button
+customizeButton.addEventListener("click", function() {
+  // Kiểm tra trạng thái hiện tại của div và thay đổi display
+  if (customizationFields.style.display === "none" || customizationFields.style.display === "") {
+    customizationFields.style.display = "block";
+  } else {
+    customizationFields.style.display = "none";
+  }
+});
 
-// sửa giao diện
+// add data custom -> input 
